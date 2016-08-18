@@ -2,16 +2,16 @@
 library(data.table)
 
 print("Reading data")
-train <- fread('../../data/train.csv', 
+train <- fread('../input/train.csv', 
                select = c('Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK', 'Demanda_uni_equil'))
 
-test <- fread('../../data/test.csv', 
+test <- fread('../input/test.csv', 
               select = c('id', 'Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK'))
 
 print("Computing means")
 #transform target variable to log(1 + demand) - this makes sense since we're 
 #trying to minimize rmsle and the mean minimizes rmse:
-train$log_demand = 1.0068*log1p(train$Demanda_uni_equil+0.0118)-0.0118
+train$log_demand = 1.006999*log1p(train$Demanda_uni_equil+0.0115997)-0.0115997
 mean_total <- mean(train$log_demand) #overall mean
 
 #mean by product
@@ -32,14 +32,12 @@ submit <- merge(submit, mean_PA, all.x = TRUE, by = c("Producto_ID", "Agencia_ID
 submit <- merge(submit, mean_C, all.x = TRUE, by = "Cliente_ID")
 submit <- merge(submit, mean_P, all.x = TRUE, by = "Producto_ID")
 
-submit$Pred <- expm1(submit$MPCA)*0.7174+expm1(submit$MPR)*0.1862+0.121
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPR)*0.741+0.192
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MC)*0.822+0.855
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPA)*0.53+0.95
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MP)*0.49+1
-submit[is.na(Pred)]$Pred <- expm1(mean_total)-0.15
-
-submit$Pred <- round(submit$Pred,4)
+submit$Pred <- expm1(submit$MPCA)*0.717+expm1(submit$MPR)*0.1823+0.132
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPR)*0.74+0.1926
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MC)*0.821+0.856
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPA)*0.525+0.95
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MP)*0.48+1
+submit[is.na(Pred)]$Pred <- expm1(mean_total)-0.91
 
 print("Write out submission file")
 # now relabel columns ready for creatig submission
