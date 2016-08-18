@@ -1,0 +1,37 @@
+# Gradle
+# ------
+.gradle
+/build
+/buildSrc/build
+/subprojects/*/build
+/subprojects/docs/src/samples/*/*/build
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+#Python
+*.pyc
+
+# Testng
+testng.xml
+
+# Results
+results/
+
+# Build
+build/
