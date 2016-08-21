@@ -35,3 +35,12 @@ results/
 
 # Build
 build/
+
+# CSV
+*.csv
+
+#R
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user
