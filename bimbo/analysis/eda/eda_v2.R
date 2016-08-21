@@ -38,15 +38,15 @@ train$target<-log(train$Demanda_uni_equil+1)
 #Conduct grouping across variables in test set, which are {Agencia_ID, Canal_ID, Ruta_SAK, Cliente_ID, Producto_ID}
 
 #mean by agencia
-mean_P <-  train[, .(MP = mean(target)), by = .(Agencia_ID)]
+mean_agent <-  train[, .(MP = mean(target)), by = .(Agencia_ID)]
 #mean by canal
-mean_C <-  train[, .(MC = mean(target)), by = .(Canal_ID)]
+mean_canal <-  train[, .(MC = mean(target)), by = .(Canal_ID)]
 #mean by Ruta_SAK
-mean_PA <- train[, .(MPA = mean(target)), by = .(Ruta_SAK)] 
+mean_ruta <- train[, .(MPA = mean(target)), by = .(Ruta_SAK)] 
 #mean by client
-mean_PR <- train[, .(MPR = mean(target)), by = .(Cliente_ID)] 
+mean_client <- train[, .(MPR = mean(target)), by = .(Cliente_ID)] 
 #mean by product
-mean_PCA <- train[, .(MPCA = mean(target)), by = .(Producto_ID)]
+mean_product <- train[, .(MPCA = mean(target)), by = .(Producto_ID)]
 #mean by agencia, canal, Ruta_SAK, client, and product
-mean_PCAS <- train[, .(MPCAS = mean(target)), by = .(Agencia_ID, Canal_ID, Ruta_SAK, Cliente_ID, Producto_ID)]
+mean_acrcp <- train[, .(MPCAS = mean(target)), by = .(Agencia_ID, Canal_ID, Ruta_SAK, Cliente_ID, Producto_ID)]
 
