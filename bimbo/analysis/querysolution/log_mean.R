@@ -2,10 +2,10 @@
 library(data.table)
 
 print("Reading data")
-train <- fread('../input/train.csv', 
+train <- fread('../../data/train.csv', 
                select = c('Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK', 'Demanda_uni_equil'))
 
-test <- fread('../input/test.csv', 
+test <- fread('../../data/test.csv', 
               select = c('id', 'Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK'))
 
 print("Computing means")
