@@ -5,6 +5,7 @@ library(scales)
 library(treemap)
 
 train <- read_csv("../../data/train.csv")
+test <- read_csv("../../data/test.csv")
 client <- read_csv("../../data/cliente_tabla.csv")
 product <- read_csv("../../data/producto_tabla.csv")
 town <- read_csv("../../data/town_state.csv")

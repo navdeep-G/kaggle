@@ -2,11 +2,8 @@
 library(data.table)
 
 print("Reading data")
-train <- fread('../../data/train.csv', 
-               select = c('Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK', 'Demanda_uni_equil'))
-
-test <- fread('../../data/test.csv', 
-              select = c('id', 'Cliente_ID', 'Producto_ID', 'Agencia_ID', 'Ruta_SAK'))
+train <- fread('../../data/train.csv')
+test <- fread('../../data/test.csv')
 
 print("Computing means")
 #transform target variable to log(1 + demand) - this makes sense since we're 
