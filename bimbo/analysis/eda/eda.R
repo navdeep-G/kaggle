@@ -4,11 +4,10 @@ library(ggplot2)
 library(scales)
 library(treemap)
 
-train <- read_csv("../input/train.csv")
-#train <- train %>% sample_frac(0.001)
-client <- read_csv("../input/cliente_tabla.csv")
-product <- read_csv("../input/producto_tabla.csv")
-town <- read_csv("../input/town_state.csv")
+train <- read_csv("../../data/train.csv")
+client <- read_csv("../../data/cliente_tabla.csv")
+product <- read_csv("../../data/producto_tabla.csv")
+town <- read_csv("../../data/town_state.csv")
 
 ggplot(train %>% sample_frac(0.005))+
   geom_histogram(aes(x=Semana), color="black", fill="red", alpha=0.5)+
