@@ -35,24 +35,18 @@ train[, .(median_demand = as.double(median(Demanda_uni_equil))), by = .(Semana)]
 train$target<-log(train$Demanda_uni_equil+1)
 
 #Conduct group bys for target and merge back into train
-#mean by product
-mean_P <-  train[, .(MP = mean(target)), by = .(Producto_ID)]
-#mean by cliente
-mean_C <-  train[, .(MC = mean(target)), by = .(Cliente_ID)]
-#mean by product and agencia
-mean_PA <- train[, .(MPA = mean(target)), by = .(Producto_ID, Agencia_ID)] 
-#mean by product and ruta
-mean_PR <- train[, .(MPR = mean(target)), by = .(Producto_ID, Ruta_SAK)] 
-#mean by product, client, agencia
-mean_PCA <- train[, .(MPCA = mean(target)), by = .(Producto_ID, Cliente_ID, Agencia_ID)]
-#mean by product, client, agencia, and week
-mean_PCAS <- train[, .(MPCAS = mean(target)), by = .(Producto_ID, Cliente_ID, Agencia_ID, Semana)]
+#Conduct grouping across variables in test set, which are {Agencia_ID, Canal_ID, Ruta_SAK, Cliente_ID, Producto_ID}
 
-print("Merging means with train set")
-train <- merge(train, mean_PCAS, all.x = TRUE, by = c("Producto_ID", "Cliente_ID", "Agencia_ID","Semana"))
-train <- merge(train, mean_PCA, all.x = TRUE, by = c("Producto_ID", "Cliente_ID", "Agencia_ID"))
-train <- merge(train, mean_PR, all.x = TRUE, by = c("Producto_ID", "Ruta_SAK"))
-train <- merge(train, mean_PA, all.x = TRUE, by = c("Producto_ID", "Agencia_ID"))
-train <- merge(train, mean_C, all.x = TRUE, by = "Cliente_ID")
-train <- merge(train, mean_P, all.x = TRUE, by = "Producto_ID")
+#mean by agencia
+mean_P <-  train[, .(MP = mean(target)), by = .(Agencia_ID)]
+#mean by canal
+mean_C <-  train[, .(MC = mean(target)), by = .(Canal_ID)]
+#mean by Ruta_SAK
+mean_PA <- train[, .(MPA = mean(target)), by = .(Ruta_SAK)] 
+#mean by client
+mean_PR <- train[, .(MPR = mean(target)), by = .(Cliente_ID)] 
+#mean by product
+mean_PCA <- train[, .(MPCA = mean(target)), by = .(Producto_ID)]
+#mean by agencia, canal, Ruta_SAK, client, and product
+mean_PCAS <- train[, .(MPCAS = mean(target)), by = .(Agencia_ID, Canal_ID, Ruta_SAK, Cliente_ID, Producto_ID)]
 
