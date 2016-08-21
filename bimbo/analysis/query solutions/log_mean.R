@@ -11,7 +11,7 @@ test <- fread('../input/test.csv',
 print("Computing means")
 #transform target variable to log(1 + demand) - this makes sense since we're 
 #trying to minimize rmsle and the mean minimizes rmse:
-train$log_demand = 1.006999*log1p(train$Demanda_uni_equil+0.0115997)-0.0115997
+train$log_demand = 1.006998*log1p(train$Demanda_uni_equil+0.0115995)-0.0115995
 mean_total <- mean(train$log_demand) #overall mean
 
 #mean by product
@@ -33,11 +33,11 @@ submit <- merge(submit, mean_C, all.x = TRUE, by = "Cliente_ID")
 submit <- merge(submit, mean_P, all.x = TRUE, by = "Producto_ID")
 
 submit$Pred <- expm1(submit$MPCA)*0.717+expm1(submit$MPR)*0.1823+0.132
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPR)*0.74+0.1926
-submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MC)*0.821+0.856
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPR)*0.739+0.1926
+submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MC)*0.822+0.855
 submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MPA)*0.525+0.95
 submit[is.na(Pred)]$Pred <- expm1(submit[is.na(Pred)]$MP)*0.48+1
-submit[is.na(Pred)]$Pred <- expm1(mean_total)-0.91
+submit[is.na(Pred)]$Pred <- expm1(mean_total)-0.92
 
 print("Write out submission file")
 # now relabel columns ready for creatig submission
