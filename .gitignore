@@ -39,6 +39,9 @@ build/
 # CSV
 *.csv
 
+# JSON
+*.json
+
 #R
 .Rhistory
 .Rapp.history
